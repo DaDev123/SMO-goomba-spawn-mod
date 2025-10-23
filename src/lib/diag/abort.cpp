@@ -18,7 +18,7 @@
 
 #include <algorithm>
 #include <atomic>
-#include <logger/Logger.hpp>
+#include <logger.hpp>
 
 namespace exl::diag {
 
