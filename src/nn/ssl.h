@@ -1,23 +1,38 @@
+/**
+ * @file ssl.h
+ * @brief SSL implementation.
+ */
+
 #pragma once
 
-#include <nn/result.h>
+#include "types.h"
 
-namespace nn::ssl {
-
-    enum CertificateFormat {};
-
-    class Context {
-    public:
-
-        enum SslVersion {
-            UNK1,
-            UNK2
+namespace nn
+{
+    namespace ssl
+    {
+        enum CertificateFormat
+        {
+            PEM = 0x01,
+            DER = 0x02
         };
 
-        nn::Result Create(SslVersion ver);
-        void ImportServerPki(ulong *,char const*,uint,nn::ssl::CertificateFormat);
-    };
+        class Context
+        {
+        public:
+            enum SslVersion
+            {
+                Auto = 0x01,
+                v10 = 0x08,
+                v11 = 0x10,
+                v12 = 0x20
+            };
 
-    void Initialize();
-    void Finalize();
-}
+            Result Create(nn::ssl::Context::SslVersion version);
+            Result ImportServerPki(u64 *, char const *certData, u32 certSize, nn::ssl::CertificateFormat certFormat);
+        };
+
+        Result Initialize();
+        Result Finalize();
+    };
+};

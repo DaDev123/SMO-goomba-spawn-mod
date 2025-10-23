@@ -72,10 +72,10 @@ class LayoutActor : public al::IUseHioNode, public al::IUseNerve, public al::IUs
         NerveKeeper *mNerveKeeper; // 0xD8
         LayoutKeeper *mLytKeeper; // 0xE0
         LayoutActionKeeper *mLytActionKeeper; // 0xE8
-        struct TextPaneAnimator *mTextPaneAnimator; // 0xF0
+        LayoutTextPaneAnimator *mTextPaneAnimator; // 0xF0
         EffectKeeper *mEffectKeeper; // 0xF8
         AudioKeeper *mAudioKeeper; // 0x100
-        struct ExecuteInfo *mExecuteInfo; // 0x108
+        LayoutExecuteInfo *mExecuteInfo; // 0x108
         HitReactionKeeper *mHitReactionKeeper; // 0x110 
         LayoutSceneInfo *mLytSceneInfo; // 0x118
         struct LayoutPartsActorKeeper *mLytPartsActorKeeper; // 0x120
@@ -84,3 +84,4 @@ class LayoutActor : public al::IUseHioNode, public al::IUseNerve, public al::IUs
 }  // namespace al
 
 static_assert(sizeof(al::LayoutActor) == 0x130);
+

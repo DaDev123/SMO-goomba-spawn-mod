@@ -1,39 +1,32 @@
+/**
+ * @file viewport.h
+ * @brief Basic Viewport class.
+ */
+
 #pragma once
 
-#include <gfx/seadGraphics.h>
-#include <math/seadBoundBox.h>
-#include <math/seadVector.h>
+#include <types.h>
+#include <sead/math/seadVector.h>
+#include <sead/gfx/seadDrawContext.h>
+#include <sead/gfx/seadFrameBuffer.h>
 
 namespace sead
 {
-template <typename T>
-class Ray;
-class DrawContext;
-class LogicalFrameBuffer;
-class Projection;
-class Camera;
+    class Viewport
+    {
+    public:
+        Viewport();
+        Viewport(f32 left, f32 top, f32 right, f32 bottom);
+        Viewport(sead::LogicalFrameBuffer const&);
 
-class Viewport : public BoundBox2f
-{
-public:
-    Viewport();
-    Viewport(float left, float top, float right, float bottom);
-    explicit Viewport(const BoundBox2f& parent);
-    explicit Viewport(const LogicalFrameBuffer& buffer);
-    virtual ~Viewport() = default;
+        void project(sead::Vector2<f32> *, sead::Vector3<f32> const &) const;
+        // void project(sead::Vector2<f32> *, sead::Vector3<f32> const &) const;
 
-    void setByFrameBuffer(const LogicalFrameBuffer& buffer);
-    void apply(DrawContext*, const LogicalFrameBuffer& buffer) const;
-    void getOnFrameBufferPos(Vector2f* out, const LogicalFrameBuffer& buffer) const;
-    void getOnFrameBufferSize(Vector2f* out, const LogicalFrameBuffer& buffer) const;
-    void applyViewport(DrawContext* context, const LogicalFrameBuffer& buffer) const;
-    void applyScissor(DrawContext* context, const LogicalFrameBuffer& buffer) const;
-    void project(Vector2f*, const Vector3f&) const;
-    void project(Vector2f*, const Vector2f&) const;
-    void unproject(Vector3f*, const Vector2f&, const Projection&, const Camera&) const;
-    void unproject(Ray<Vector3f>*, const Vector2f&, const Projection&, const Camera&) const;
+        void apply(sead::DrawContext *, sead::LogicalFrameBuffer const &) const;
 
-private:
-    Graphics::DevicePosture mDevicePosture;
+        f32 _8;
+        f32 Viewport_xC;
+        f32 _10;
+        f32 _14;
+    };
 };
-}  // namespace sead

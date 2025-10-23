@@ -2,13 +2,27 @@
 
 #include "container/seadOffsetList.h"
 #include "controller/seadControllerBase.h"
-#include "seadControllerDefine.h"
 
 namespace sead
 {
 class ControllerMgr;
 class ControllerAddon;
 
+namespace ControllerDefine
+{
+enum AddonId : int
+{
+};
+enum ControllerId : int
+{
+    _15 = 15,
+    _16 = 16
+};
+enum DeviceId : int
+{
+};
+
+}  // namespace ControllerDefine
 
 class Controller : public ControllerBase
 {
@@ -18,7 +32,7 @@ public:
     virtual ~Controller();
     virtual void calc();
     virtual bool isConnected();
-    ControllerAddon* getAddonByOrder(ControllerDefine::AddonId, int) const;
+    ControllerAddon* getAddonByOrder(ControllerDefine::AddonId, int);
     ControllerAddon* getAddon(ControllerDefine::AddonId);
 
 protected:

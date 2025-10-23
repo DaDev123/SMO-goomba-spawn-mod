@@ -8,7 +8,7 @@
 
 class QuestInfo : public al::IUseSceneObjHolder {
 public:
-
+    
     QuestInfo(void);
 
     virtual al::SceneObjHolder* getSceneObjHolder(void) const override { return mSceneObjHolder; };
@@ -28,7 +28,7 @@ public:
     int mQuestID = -1; //0x8
     sead::Vector3f mShineTrans = sead::Vector3f::zero; // 0xC
     bool mIsMainQuest; // 0x18
-    al::SceneObjHolder *mSceneObjHolder;  // 0x20
+    al::SceneObjHolder *mSceneObjHolder;  // 0x20 
     sead::FixedSafeString<0x80> mLabel; // 0x28
     sead::FixedSafeString<0x80> mStageName;  // 0xC0
     bool mIsSingle; // 0x158

@@ -5,5 +5,5 @@
 
 class ProjectCameraPoserFactory : public al::CameraPoserFactory {
     public:
-      ProjectCameraPoserFactory();
+        ProjectCameraPoserFactory();
 };

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <al/Library/Resource/Resource.h>
-#include <game/Player/PlayerCostumeInfo.h>
+#include "al/resource/Resource.h"
+#include "game/Player/PlayerCostumeInfo.h"
 
 namespace PlayerCostumeFunction {
     PlayerBodyCostumeInfo *createBodyCostumeInfo(al::Resource *,char const*);

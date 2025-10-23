@@ -5,8 +5,7 @@
 
 #pragma once
 
-#include "../../../nvn/nvn.h"
-#include "../device.h"
+#include "nn/gfx/device.h"
 
 namespace nn
 {
@@ -23,8 +22,6 @@ namespace nn
 
                 void Initialize(nn::gfx::DeviceInfo const &deviceInfo);
                 void Finalize();
-
-                NVNdevice *mDevice;
             };
         };
     };

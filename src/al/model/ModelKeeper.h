@@ -1,31 +1,46 @@
 #pragma once
 
-#include "al/model/ModelCtrl.h"
 #include "al/resource/ActorResource.h"
-
+#include "math/seadMatrix.h"
 #include "types.h"
+#include "ModelCtrl.h"
 
 namespace al {
+    struct ModelLodCtrl;
+    struct DitherAnimator;
+    struct GpuMemAllocator;
+    struct ModelShaderHolder;
+    struct ModelOcclusionCullingDirector;
+    struct ShadowDirector;
+    struct PrepassTriangleCulling;
+}
 
-class AnimPlayerSkl;
-class AnimPlayerSimple;
+namespace al {
+    class ModelKeeper {
+    public:
+        ModelKeeper();
+        virtual ~ModelKeeper();
+        void initResource(al::ActorResource const*);
+        void createMatAnimForProgram(int);
+        void getAnimResource() const;
+        void getModelResource() const;
+        void setDisplayRootJointMtxPtr(sead::Matrix34f const*);
+        void setModelLodCtrl(al::ModelLodCtrl*);
+        void setDitherAnimator(al::DitherAnimator*);
+        void initModel(int, al::GpuMemAllocator*, al::ModelShaderHolder*, al::ModelOcclusionCullingDirector*, al::ShadowDirector*, al::PrepassTriangleCulling*);
+        void show();
+        void hide();
+        void update();
+        void updateLast();
+        void calc(sead::Matrix34f const&, sead::Vector3f const&);
+        void getBaseMtx() const;
+        void getWorldMtxPtrByIndex(int) const;
 
-class ModelKeeper {
-public:
-    void* vtable;                               //0x00
-    const char* mResourceName;                  //0x08
-    al::ModelCtrl* mModelCtrl;                  //0x10
-    al::ActorResource* mActorRes;               //0x18
-    al::AnimPlayerSkl* mAnimPlayerSkl;          //0x20
-    al::AnimPlayerSimple* mAnimPlayerSimple1;   //0x28
-    al::AnimPlayerSimple* mAnimPlayerSimple2;   //0x30
-    al::AnimPlayerSimple* mAnimPlayerSimple3;   //0x38
-    al::AnimPlayerSimple* mAnimPlayerSimple4;   //0x40
-    al::AnimPlayerSimple* mAnimPlayerSimple5;   //0x48
-    al::AnimPlayerSimple* mAnimPlayerSimple6;   //0x50
-    void* mUnk;                                 //0x58
-    int mUnk2;                                  //0x60
+        const char *mResourceName;
+        al::ModelCtrl *mModelCtrl;
+        const al::ActorResource *mResource;
+        char gap20[67];
+        bool field_63;
 
-};
-
-} // namespace al
+   };
+}

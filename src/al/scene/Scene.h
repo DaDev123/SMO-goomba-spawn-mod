@@ -1,66 +1,56 @@
 #pragma once
 
-#include <al/audio/AudioKeeper.h>
-#include <al/camera/CameraDirector.h>
+#include "SceneInitInfo.h"
 #include <al/nerve/NerveExecutor.h>
-#include <al/nerve/NerveKeeper.h>
-#include <al/scene/SceneObjHolder.h>
-#include <prim/seadSafeString.h>
+#include "al/audio/AudioKeeper.h"
+#include "al/camera/CameraDirector.h"
+#include "al/scene/SceneObjHolder.h"
+#include "prim/seadSafeString.h"
 
-namespace al {
-class StageResourceKeeper;
-class LiveActorKit;
-class LayoutKit;
-class SceneStopCtrl;
-class SceneMsgCtrl;
-class ScreenCoverCtrl;
-class SceneInitInfo;
-class GraphicsInitArg;
-struct DrawSystemInfo;
-class Scene : public al::NerveExecutor, public al::IUseAudioKeeper, public al::IUseCamera, public al::IUseSceneObjHolder {
-public:
-    bool mIsAlive;
-    sead::FixedSafeString<64> mName;
-    al::StageResourceKeeper* mStageResourceKeeper;
-    al::LiveActorKit* mLiveActorKit;
-    al::LayoutKit* mLayoutKit;
-    al::SceneObjHolder* mSceneObjHolder;
-    al::SceneStopCtrl* mSceneStopCtrl;
-    al::SceneMsgCtrl* mSceneMsgCtrl;
-    al::ScreenCoverCtrl* mScreenCoverCtrl;
-    al::AudioDirector* mAudioDirector;
-    al::AudioKeeper* mAudioKeeper;
-    al::DrawSystemInfo* mDrawSystemInfo;
+namespace al
+{
 
-public:
-    Scene(const char* name);
-    virtual ~Scene();
-    virtual void init(const al::SceneInitInfo& initInfo);
-    virtual void appear();
-    virtual void kill();
-    virtual void movement();
-    virtual void control();
-    virtual void drawMain();
-    virtual void drawSub();
+    class GraphicsInitArg;
+    class StageResourceKeeper;
+    class LiveActorKit;
+    class LayoutKit;
+    class SceneStopCtrl;   
+    class SceneMsgCtrl;    
+    class ScreenCoverCtrl; 
+    class AudioDirector;   
 
-    void initializeAsync(const al::SceneInitInfo& initInfo);
-    void initSceneObjHolder(al::SceneObjHolder*);
-    void initAndLoadStageResource(const char*, s32);
-    void initLiveActorKit(const al::SceneInitInfo& initInfo, s32 maxActors, s32 maxPlayers, s32 maxCameras);
-    void initLiveActorKitImpl(const al::SceneInitInfo& initInfo, s32 maxActors, s32 maxPlayers, s32 maxCameras);
-    void initDrawSystemInfo(const al::SceneInitInfo& initInfo);
-    void initLiveActorKitWithGraphics(const al::GraphicsInitArg& graphicsInitArg, const al::SceneInitInfo& initInfo, s32 maxActors, s32 maxPlayers,
-                                      s32 maxCameras);
-    void initLayoutKit(const al::SceneInitInfo& initInfo);
-    void initSceneStopCtrl();
-    void initSceneMsgCtrl();
-    void initScreenCoverCtrl();
-    void endInit(const al::ActorInitInfo& initInfo);
+    class Scene : public al::NerveExecutor, public al::IUseAudioKeeper, public al::IUseCamera, public al::IUseSceneObjHolder
+    {
+    public:
+        Scene(const char *);
 
-    al::AudioKeeper* getAudioKeeper() const override;
-    al::SceneObjHolder* getSceneObjHolder() const override;
-    al::CameraDirector* getCameraDirector() const override;
+        virtual ~Scene();
+        virtual void init(const al::SceneInitInfo &);
+        virtual void appear();
+        virtual void kill();
+        virtual void movement();
+        virtual void control();
+        virtual void drawMain();
+        virtual void drawSub();
+        virtual al::AudioKeeper* getAudioKeeper();
+        virtual al::SceneObjHolder* getSceneObjHolder();
+        virtual al::CameraDirector* getCameraDirector();
 
-    al::LiveActorKit* getLiveActorKit() const { return mLiveActorKit; }
+        void initDrawSystemInfo(al::SceneInitInfo const&);
+
+        void initLiveActorKitWithGraphics(al::GraphicsInitArg const &, al::SceneInitInfo const &, int, int, int);
+
+        bool mIsAlive;
+        sead::FixedSafeString<0x40> mName;
+        al::StageResourceKeeper *mStageResourceKeeper;
+        al::LiveActorKit *mActorKit;
+        al::LayoutKit *mLayoutKit;
+        al::SceneObjHolder *mSceneObjHolder;
+        al::SceneStopCtrl *mSceneStopCtrl;
+        al::SceneMsgCtrl *mSceneMsgCtrl;
+        al::ScreenCoverCtrl *mScreenCoverCtrl;
+        al::AudioDirector *mAudioDirector;
+        al::AudioKeeper *mAudioKeeper;
+        al::NerveKeeper *mNerveKeeper;
+    };
 };
-}  // namespace al

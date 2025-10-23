@@ -17,6 +17,7 @@ namespace al
     class IUseLayoutAction;
 
     char16_t* getPaneStringBuffer(IUseLayout const* lyt, const char* paneName);
+    int getPaneStringBufferLength(IUseLayout const* lyt, const char* paneName);
 
     void startFreezeActionEnd(IUseLayoutAction*, char const*, char const*);
 
@@ -27,10 +28,16 @@ namespace al
     void showPane(IUseLayout* lyt, const char* paneName);
     void showPaneNoRecursive(IUseLayout* lyt, const char* paneName);
 
+    void hidePaneRoot(al::IUseLayout *);
+    void hidePaneRootNoRecursive(al::IUseLayout *);
+    void showPaneRoot(al::IUseLayout *);
+    void showPaneRootNoRecursive(al::IUseLayout *);
+
     bool isHidePane(const IUseLayout *lyt, const char *paneName);
+    bool isHidePaneRoot(al::IUseLayout const*);
     bool isActionPlaying(IUseLayoutAction *, const char *action, const char *group);
     bool isActionEnd(IUseLayoutAction const*, char const*);
-    bool isExistPane(IUseLayout *lyt, const char *paneName);
+    bool isExistPane(const al::IUseLayout *lyt, char const *paneName);
 
     void initLayoutActor(LayoutActor*, LayoutInitInfo const&, char const*, char const*);
     void setActionFrameRate(IUseLayoutAction *,float,char const*);

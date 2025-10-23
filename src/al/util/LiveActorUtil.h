@@ -7,6 +7,7 @@
 #include "al/LiveActor/LiveActor.h"
 #include "al/async/FunctorBase.h"
 #include "al/collision/Collider.h"
+#include "game/Player/PlayerActorBase.h"
 #include "game/Player/PlayerActorHakoniwa.h"
 #include "al/layout/LayoutActor.h"
 #include "al/layout/LayoutInitInfo.h"
@@ -20,19 +21,21 @@ namespace al {
     void hideModel(LiveActor *);
     void hideModelIfShow(const LiveActor*);
     void showModelIfHide(const LiveActor*);
-    void showModel(LiveActor*);
     void setModelAlphaMask(const LiveActor*, float);
     void resetPosition(const LiveActor*);
     void onSyncClippingSubActor(LiveActor*, const LiveActor*);
     void onSyncHideSubActor(LiveActor*, const LiveActor*);
     void onSyncAlphaMaskSubActor(LiveActor*, const LiveActor*);
+    void onSyncAppearSubActor(al::LiveActor *,al::LiveActor const*);
+    void onSyncAppearSubActor(al::LiveActor *,char const*);
+    void onSyncAppearSubActorAll(al::LiveActor *);
     void setMaterialProgrammable(LiveActor*);
     void startAction(LiveActor*, char const*);
     void startAction(IUseLayoutAction*, const char *, const char *);
     void startFreezeActionEnd(IUseLayoutAction *,char const*,char const*);
-    void startHitReaction(LiveActor*, char const*);
-    void invalidateClipping(LiveActor *);
-    void validateClipping(LiveActor *);
+    void startHitReaction(const LiveActor *, char const*);
+    void invalidateClipping(const LiveActor *);
+    void validateClipping(const LiveActor *);
     void setNerveAtActionEnd(LiveActor*, const al::Nerve*);
     void updateMaterialCodeWater(LiveActor *);
     void updateMaterialCodeWater(LiveActor *, bool);
@@ -41,27 +44,12 @@ namespace al {
     void turnToTarget(LiveActor*, const al::LiveActor *, float);
 
     void expandClippingRadiusByShadowLength(LiveActor *,sead::Vector3f *, float);
-    void setEffectFollowPosPtr(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const*);
-    void invalidateOcclusionQuery(al::LiveActor*);
+    void addPartialSklAnimPartsListRecursive(al::LiveActor*, char const*, int);
+    void setMaterialProgrammable(al::LiveActor *);
 
     void initJointLocalXRotator(const LiveActor *,const float *,const char *);
     void initJointLocalYRotator(const LiveActor *,const float *,const char *);
-    void initJointLocalZRotator(const LiveActor *,const float *,const char *);
-
-    void expandClippingRadiusByShadowLength(LiveActor*, sead::Vector3f*, float);
-
-
-    void initActorSceneInfo(al::LiveActor*, al::ActorInitInfo const&);
-    void initActorSRT(al::LiveActor*, al::ActorInitInfo const&);
-    void initActorModelKeeper(al::LiveActor*, al::ActorInitInfo const&, const char*, int, const char*);
-    void initPartialSklAnim(al::LiveActor*, int, int, int);
-    void addPartialSklAnimPartsListRecursive(al::LiveActor*, const char*, int);
-    bool tryGetActorInitFileIter(ByamlIter*, al::Resource const*, const char*, const char*);
-    void initActorEffectKeeper(al::LiveActor*, al::ActorInitInfo const&, const char*);
-    void initActorActionKeeper(al::LiveActor*, al::ActorResource const*, char const*, char const*);
-    void initActorClipping(al::LiveActor*, al::ActorInitInfo const&);
-    void onSyncAppearSubActor(al::LiveActor*, al::LiveActor const*);
-    al::Resource* getModelResource(al::LiveActor const*);
+    void initJointLocalZRotator(const LiveActor*, const float*, const char*);
 
     void initActorPoseTRSV(al::LiveActor *);
     void initActorPoseTRMSV(al::LiveActor *);
@@ -73,11 +61,27 @@ namespace al {
     void initActorPoseTQGSV(al::LiveActor *);
     void initActorPoseTQGMSV(al::LiveActor *);
     void initActorPoseT(al::LiveActor *,sead::Vector3<float> const&);
-    void initActorPoseTR(al::LiveActor *,sead::Vector3<float> const&,sead::Vector3<float> const&);
-    
-    void initCreateActorWithPlacementInfo(LiveActor*, const al::ActorInitInfo&);
+    void initActorPoseTR(al::LiveActor*, sead::Vector3<float> const&, sead::Vector3<float> const&);
+
+    void initActorSRT(al::LiveActor*, al::ActorInitInfo const&);
+    void initActorSceneInfo(al::LiveActor *, al::ActorInitInfo const&);
+    void initActorModelKeeper(al::LiveActor *,al::ActorInitInfo const&,al::ActorResource const*,int);
+    void initActorModelKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*, int,
+                              char const*);
+    void initActorEffectKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*);
+    void initActorActionKeeper(al::LiveActor *,al::ActorInitInfo const&,char const*,char const*);
+    void initActorActionKeeper(al::LiveActor*, al::ActorResource const*, char const*, char const*);
+    void initActorClipping(al::LiveActor *,al::ActorInitInfo const&);
+    void initPartialSklAnim(al::LiveActor*, int, int, int);
+
+    bool tryGetActorInitFileIterAndName(al::ByamlIter *,sead::BufferedSafeStringBase<char> *,al::Resource const*,char const*,char const*);
+    bool tryGetActorInitFileIter(al::ByamlIter *,al::Resource const*,char const*,char const*);
+    bool tryGetActorInitFileIterAndName(al::ByamlIter *,sead::BufferedSafeStringBase<char> *,al::LiveActor const*,char const*,char const*);
+    bool tryGetActorInitFileIter(al::ByamlIter *,al::LiveActor const*,char const*,char const*);
+
     void initLayoutPartsActor(LayoutActor*, LayoutActor*, const LayoutInitInfo&, char const*,
                               char const*);
+    void initCreateActorWithPlacementInfo(LiveActor*, const al::ActorInitInfo&);
     void initMapPartsActor(LiveActor *, const al::ActorInitInfo  &, const char *);
     void initActorWithArchiveName(LiveActor*, const al::ActorInitInfo&, const sead::SafeString&, const char*);
     void initJointControllerKeeper(const LiveActor*, int);
@@ -100,8 +104,8 @@ namespace al {
     bool isOnStageSwitch(IUseStageSwitch const *, const char *);
     bool isValidStageSwitch(IUseStageSwitch const *, const char *);
     bool isFallNextMove(const LiveActor *, const sead::Vector3f &, float, float);
-    bool isInDeathArea(const LiveActor *);
-    bool isCollidedFloorCode(const LiveActor *, const char *);
+    bool isInDeathArea(LiveActor *);
+    bool isCollidedFloorCode(LiveActor *, const char *);
     bool isNoCollide(LiveActor const *);
     bool isNearPlayer(const LiveActor*, float);
     bool isFallOrDamageCodeNextMove(const LiveActor *,  const sead::Vector3f &, float, float);
@@ -109,11 +113,9 @@ namespace al {
 
     bool tryOnSwitchDeadOn(IUseStageSwitch *);
     bool trySyncStageSwitchAppear(LiveActor *);
-    PlayerActorHakoniwa* tryFindNearestPlayerActor(const LiveActor *);
+    PlayerActorBase* tryFindNearestPlayerActor(const LiveActor *);
     bool tryFindNearestPlayerPos(sead::Vector3f *, const LiveActor *);
-    bool tryAddRippleMiddle(const LiveActor*);
-    bool tryStartMclAnimIfNotPlaying(LiveActor *, char const *);
-    bool tryEmitEffect(IUseEffectKeeper *effectKeeper, char const *effectName, sead::Vector3f const *effectPosition);
+    bool tryAddRippleMiddle(LiveActor*);
     bool tryStartActionIfNotPlaying(LiveActor*, const char*);
 
     float getClippingRadius(al::LiveActor const*);
@@ -128,12 +130,11 @@ namespace al {
     sead::Vector3f* getFrontPtr(LiveActor*);
     sead::Vector3f& getVelocity(const LiveActor*);
     sead::Vector3f* getVelocityPtr(LiveActor*);
-    sead::Quatf& getQuat(LiveActor const*);
-    sead::Quatf* getQuatPtr(LiveActor*);
-    float *getScaleX(LiveActor const *);
-    float *getScaleY(LiveActor const *);
-    float *getScaleZ(LiveActor const *);
-    Collider* getActorCollider(LiveActor const *);
+    sead::Vector3f& getRotate(al::LiveActor const*);
+    sead::Vector3f* getRotatePtr(al::LiveActor*);
+    sead::Quatf& getQuat(al::LiveActor const*);
+    sead::Quatf* getQuatPtr(al::LiveActor *);
+    Collider* getActorCollider(LiveActor*);
 
     sead::Matrix34f* getJointMtxPtr(const LiveActor*, const char*); //return type might be const
 
@@ -142,8 +143,7 @@ namespace al {
     sead::Vector3f* getOnGroundNormal(const LiveActor *, uint);
 
     void scaleVelocity(LiveActor*, float);
-    void scaleVelocityDirection(LiveActor*, sead::Vector3f const &, float);
-    void scaleVelocityExceptDirection(LiveActor *, sead::Vector3f const &, float);
+    void scaleVelocityDirection(LiveActor*, sead::Vector3f const&, float);
 
     void setClippingObb(LiveActor*, sead::BoundBox3f const&);
     void setClippingInfo(LiveActor*, float, sead::Vector3f const*);
@@ -156,11 +156,9 @@ namespace al {
     void setVelocityY(LiveActor*, float);
     void setVelocityZ(LiveActor*, float);
     void setVelocityZero(LiveActor*);
-    void setVelocityBlowAttackAndTurnToTarget(LiveActor *,
-                                              sead::Vector3f const &, float,
-                                              float);
+    void setVelocityBlowAttackAndTurnToTarget(LiveActor *, sead::Vector3f const&,
+                                                  float, float);
     void setActionFrameRate(LiveActor*, float);
-    void setEffectAllScale(IUseEffectKeeper *, char const *, sead::Vector3f const &);
 
     void addVelocityToGravityFittedGround(LiveActor*, float, unsigned int);
     void addVelocityToGravity(LiveActor*, float);
@@ -188,11 +186,8 @@ namespace al {
     bool listenStageSwitchOnAppear(IUseStageSwitch *, al::FunctorBase const &functor);
 }
 
-class SklAnimRetargettingInfo;
-
 namespace rs {
 
 sead::Vector3f* getPlayerPos(const al::LiveActor*);
-SklAnimRetargettingInfo* createPlayerSklRetargettingInfo(al::LiveActor*, sead::Vector3f const&);
 
 }

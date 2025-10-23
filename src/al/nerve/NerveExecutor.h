@@ -5,15 +5,17 @@
 
 namespace al
 {
-    class NerveExecutor : public IUseNerve {
-    private:
-        al::NerveKeeper* mNerveKeeper = nullptr;
-
+    class NerveExecutor : public IUseNerve
+    {
     public:
-        NerveExecutor(const char* name);
+        NerveExecutor(const char *);
+
+        virtual NerveKeeper* getNerveKeeper() const;
         virtual ~NerveExecutor();
-        al::NerveKeeper* getNerveKeeper() const override;
-        void initNerve(const al::Nerve* nerve, s32 stateCount);
+
+        void initNerve(const al::Nerve *, int stateCount);
         void updateNerve();
+
+        al::NerveKeeper* mKeeper; // _8
     };
 };

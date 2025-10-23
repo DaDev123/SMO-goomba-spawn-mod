@@ -1,5 +1,6 @@
 #pragma once
 
+// #include "sead/heap/seadHeap.h"
 #include "seadFontBase.h"
 #include "types.h"
 
@@ -9,60 +10,62 @@ namespace sead {
     struct DrawContext;
 
     class DebugFontMgrNvn : public FontBase {
-        SEAD_SINGLETON_DISPOSER(DebugFontMgrNvn)
         public:
-            DebugFontMgrNvn();
+            DebugFontMgrNvn(void);
+
+            static DebugFontMgrNvn *sInstance;
 
             void initialize(sead::Heap *, const char *, const char*, unsigned int);
             void initializeFromBinary(sead::Heap *, void *, unsigned long, void *, unsigned long, unsigned int);
-            void swapUniformBlockBuffer();
+            static sead::DebugFontMgrNvn *createInstance(sead::Heap *);
+            void swapUniformBlockBuffer(void);
+            void begin(sead::DrawContext *) const;
+            void end(sead::DrawContext *) const;
 
-            void begin(sead::DrawContext *) const override;
-            void end(sead::DrawContext *) const override;
-
-            float getHeight() const override {
+            float getHeight(void) const {
                 return 16.f;
             };
-            float getWidth() const override {
+            float getWidth(void) const {
                 return 8.f;
             };
-            float getCharWidth(char16_t) const override {
+            float getCharWidth(char16_t) const {
                 return 8.f;
             };
-            int getMaxDrawNum() const override {
+            int getMaxDrawNum(void) const {
                 return 0x80;
             };
-            int getEncoding() const override {
+            int getEncoding(void) const {
                 return 2;
             };
             
     };
 
     class DebugFontMgrJis1Nvn : public FontBase {
-        SEAD_SINGLETON_DISPOSER(DebugFontMgrJis1Nvn)
         public:
-            DebugFontMgrJis1Nvn();
+            DebugFontMgrJis1Nvn(void);
+
+            static DebugFontMgrJis1Nvn *sInstance;
 
             void initialize(sead::Heap *, const char *, const char *, const char *, unsigned int);
             void initializeFromBinary(sead::Heap *,void *, ulong,void *, ulong,void const*, uint);
-            void swapUniformBlockBuffer();
+            static sead::DebugFontMgrJis1Nvn *createInstance(sead::Heap *);
+            void swapUniformBlockBuffer(void);
+            void begin(sead::DrawContext *) const;
+            void end(sead::DrawContext *) const;
 
-            void begin(sead::DrawContext *) const override;
-            void end(sead::DrawContext *) const override;
-
-            float getHeight() const override {
+            float getHeight(void) const {
                 return 16.f;
             };
-            float getWidth() const override {
+            float getWidth(void) const {
                 return 8.f;
             };
-            float getCharWidth(char16_t val) const override {
-                return val < 127u ? 8.0f : 16.0f;
-            }
-            int getMaxDrawNum() const override {
+
+            float getCharWidth(char16_t) const;
+
+            int getMaxDrawNum(void) const {
                 return 0x80;
             };
-            int getEncoding() const override {
+            int getEncoding(void) const {
                 return 2;
             };
             

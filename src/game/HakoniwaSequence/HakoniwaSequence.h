@@ -27,9 +27,8 @@ namespace al {
     class SeadAudioPlayer;
     class AudioBusSendFader;
     class SimpleAudioUser;
-    class AsyncFunctorThread;
-} // namespace al
-
+}  // namespace al
+    
 class BootLayout;
 class TimeBalloonSequenceInfo;
 class CollectBgmPlayer;

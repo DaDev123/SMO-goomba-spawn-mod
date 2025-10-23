@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sead/math/seadVector.h>
+#include "math/seadQuat.h"
 
 namespace al {
 
@@ -49,10 +50,6 @@ void separateVectorHV(sead::Vector3f*, sead::Vector3f*, const sead::Vector3f &,
 bool tryNormalizeOrDirZ(sead::Vector3f *);
 bool tryNormalizeOrDirZ(sead::Vector3f *, sead::Vector3f const&);
 bool tryNormalizeOrZero(sead::Vector3f*, sead::Vector3f const&);
-void rotateVectorDegree(sead::Vector3f *, const sead::Vector3f &, const sead::Vector3f &, float);
-void rotateVectorDegreeX(sead::Vector3f*, float);
-void rotateVectorDegreeY(sead::Vector3f*, float);
-void rotateVectorDegreeZ(sead::Vector3f*, float);
 
 float calcAngleToTargetH(LiveActor const*,sead::Vector3f const&);
 float calcAngleToTargetV(LiveActor const*,sead::Vector3f const&);
@@ -65,5 +62,7 @@ float calcAngleOnPlaneDegreeOrZero(sead::Vector3f const&,sead::Vector3f const&,s
 float calcAngleSignOnPlane(sead::Vector3f const&,sead::Vector3f const&,sead::Vector3f const&);
 bool tryCalcAngleDegree(float *,sead::Vector3f const&,sead::Vector3f const&);
 bool tryCalcAngleOnPlaneDegree(float *,sead::Vector3f const&,sead::Vector3f const&,sead::Vector3f const&);
+
+void calcQuatRotateDegree(sead::Vector3<float>* result, sead::Quat<float> const& quat);
 
 };  // namespace al

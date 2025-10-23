@@ -11,20 +11,7 @@ namespace al
     public:
         LiveActorGroup(const char *, int);
 
-        void appearAll();
-        void killAll();
-        void makeActorAliveAll();
-        void makeActorDeadAll();
-
-        bool isExistActor(al::LiveActor const*) const;
-        bool isFull() const;
-
-        al::LiveActor* tryFindDeadActor() const;
-        int calcAliveActorNum() const;
-        
         virtual void registerActor(al::LiveActor *);
-        void removeActor(al::LiveActor const*);
-        void removeActorAll();
 
         const char* mGroupName; // _8
         int mMaxActorCount; // _10

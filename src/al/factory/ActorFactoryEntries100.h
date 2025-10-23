@@ -2,7 +2,9 @@
 
 #include "ActorFactory.h"
 
-#include "game/Actors/Shine.h"
+#include "actors/PuppetActor.h"
+#include "actors/PuppetHackActor.h"
+#include "server/freeze/FreezePlayerBlock.h"
 
 namespace al
 {
@@ -66,9 +68,11 @@ namespace al
     class WobbleMapParts;
 } // namespace al
 
-static al::NameToCreator<al::createActor> actorEntries[] = {
+__attribute((used)) static al::NameToCreator<al::createActor> actorEntries[] = {
     // CUSTOM ACTOR ENTRIES HERE
-    // {"ClassNameUsedInStageFiles", &usecreateactorfunctionhere<className>},
+    {"FreezePlayerBlock", &al::createCustomActor<FreezePlayerBlock>},
+    {"PuppetActor", &al::createCustomActor<PuppetActor>},
+    {"PuppetHackActor", &al::createCustomActor<PuppetHackActor>},
     // VANILLA ACTOR ENTRIES
     {"AchievementNpc", &al::createActorFunction<class AchievementNpc>},
     {"AirBubble", &al::createActorFunction<class AirBubble>},
@@ -477,7 +481,7 @@ static al::NameToCreator<al::createActor> actorEntries[] = {
     {"SessionMusicianNpc", &al::createActorFunction<class SessionMusicianNpc>},
     {"Shibaken", &al::createActorFunction<class Shibaken>},
     {"ShibakenHomeShipInside", &al::createActorFunction<class Shibaken>},
-    {"Shine", &al::createActorFunction<Shine>},
+    {"Shine", &al::createActorFunction<class Shine>},
     {"ShineWithAppearCamera", &al::createActorFunction<class Shine>},
     {"ShineChipWatcher", &al::createActorFunction<class ShineChipWatcher>},
     {"ShineDot", &al::createActorFunction<class Shine>},
@@ -639,4 +643,5 @@ static al::NameToCreator<al::createActor> actorEntries[] = {
     {"YoshiFruitShineHolder", &al::createActorFunction<class YoshiFruitShineHolder>},
     {"Yukimaru", &al::createActorFunction<class Yukimaru>},
     {"YukimaruRacer", &al::createActorFunction<class YukimaruRacer>},
-    {"YukimaruRacerTiago", &al::createActorFunction<class YukimaruRacerTiago>}};
+    {"YukimaruRacerTiago", &al::createActorFunction<class YukimaruRacerTiago>}
+};

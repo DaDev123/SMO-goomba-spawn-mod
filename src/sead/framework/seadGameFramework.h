@@ -6,6 +6,8 @@
 #include "sead/thread/seadThread.h"
 #include "sead/prim/seadRuntimeTypeInfo.h"
 
+struct NVNcommandBuffer;
+struct NVNcommandBufferMemoryEvent;
 
 namespace sead
 {
@@ -16,6 +18,7 @@ namespace sead
             GameFrameworkNx(sead::GameFrameworkNx::CreateArg const&);
             ~GameFrameworkNx();
             void initializeGraphicsSystem(sead::Heap *,sead::Vector2<float> const&);
+            void outOfMemoryCallback_(NVNcommandBuffer *,NVNcommandBufferMemoryEvent,ulong,void *);
             void presentAsync_(sead::Thread *,long);
             void getAcquiredDisplayBufferTexture(void);
             void setVBlankWaitInterval(uint);

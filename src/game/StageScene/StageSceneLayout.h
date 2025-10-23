@@ -3,7 +3,10 @@
 #include "game/Layouts/CoinCounter.h"
 #include "al/layout/LayoutActor.h"
 #include "al/layout/LayoutInitInfo.h"
+#include "al/layout/SimpleLayoutAppearWaitEnd.h"
 #include "al/nerve/NerveStateBase.h"
+#include "game/Layouts/CounterLifeCtrl.h"
+#include "game/Layouts/MapMini.h"
 
 namespace al {
     class SubCameraRenderer;
@@ -42,7 +45,7 @@ class StageSceneLayout : public al::NerveStateBase {
         void startShineChipCompleteAnim(void);
         void tryStartDemoGetLifeMaxUpItem(bool);
         void startCloset(void);
-        void startShineCountAnim(bool);
+        void startShineCountAnim(bool isGameClear);
 
         void exeAppear(void);
         void exeWait(void);
@@ -62,17 +65,19 @@ class StageSceneLayout : public al::NerveStateBase {
         bool isEndShineCountAnim(void) const;
         bool isActionEndAll(void) const;
 
-        CoinCounter *coinCounter; // 0x18
-        struct CounterLifeCtrl * counterLifeCtrl; // 0x20
-        struct ShineCounter * shineCounter; // 0x28
-        CoinCounter * coinCollectCounter; // 0x30
-        struct ShineChipLayoutParts * shineChipParts; // 0x38
-        struct PlayGuideCamera * playGuideCam; // 0x40
-        struct PlayGuideBgm * playGuideBgm; // 0x48
-        struct MapMini * mapMini; // 0x50
-        al::PlayerHolder *playerHolder; // 0x58
+        CoinCounter *mCoinCountLyt; // 0x18
+        CounterLifeCtrl * mHealthLyt; // 0x20
+        struct ShineCounter * mShineCountLyt; // 0x28
+        CoinCounter * mCoinCollectLyt; // 0x30
+        struct ShineChipLayoutParts * mShineChipPartsLyt; // 0x38
+        struct PlayGuideCamera * mPlayGuideCamLyt; // 0x40
+        struct PlayGuideBgm * mPlayGuideBgmLyt; // 0x48
+        MapMini * mMapMiniLyt; // 0x50
+        al::PlayerHolder *mPlayerHolder; // 0x58
         void * unkPtr; // 0x60
-        struct SimpleLayoutAppearWaitEnd * simpleLayoutAppearWaitEnd; // 0x68
+        al::SimpleLayoutAppearWaitEnd * mPlayGuideMenuLyt; // 0x68
         void * voidPtr; // 0x70
-        struct LayoutActor * lytActor; // 0x78
+        al::LayoutActor * mKidsModeLyt; // 0x78
 };
+
+static_assert(sizeof(StageSceneLayout) == 0x80, "StageSceneLayout size");

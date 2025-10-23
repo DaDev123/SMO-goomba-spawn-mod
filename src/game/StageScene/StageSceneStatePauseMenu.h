@@ -2,6 +2,7 @@
 
 #include "al/nerve/HostStateBase.h"
 #include "al/layout/LayoutInitInfo.h"
+#include "al/layout/SimpleLayoutAppearWaitEnd.h"
 #include "al/scene/Scene.h"
 #include "al/LiveActor/LiveActor.h"
 #include "StageSceneLayout.h"
@@ -11,6 +12,7 @@
 #include "al/util/NerveUtil.h"
 
 #include "game/UI/MenuSelectParts.h"
+#include "logger.hpp"
 
 class FooterParts;
 class StageSceneStateStartSeparatePlay;
@@ -19,7 +21,6 @@ class SceneAudioSystemPauseController;
 
 namespace al
 {
-    class SimpleLayoutAppearWaitEnd : public al::LayoutActor {};
     class WindowConfirm;
     class KeyRepeatCtrl;
     class WipeSimple;
@@ -72,6 +73,8 @@ class StageSceneStatePauseMenu : public al::HostStateBase<al::Scene> {
         void exeSave(void);
         void exeConfirmNewGame(void);
         void exeNotExistEmptyFile(void);
+
+        void exeServerConfig(void);
     
         al::SimpleLayoutAppearWaitEnd *field_0x20; // 0x20
         al::SimpleLayoutAppearWaitEnd *mMenuGuide; // 0x28
@@ -100,8 +103,36 @@ class StageSceneStatePauseMenu : public al::HostStateBase<al::Scene> {
 };
 
 namespace {
+    NERVE_HEADER(StageSceneStatePauseMenu, Appear)
+    NERVE_HEADER(StageSceneStatePauseMenu, Wait)
+    NERVE_HEADER(StageSceneStatePauseMenu, FadeBeforeHelp)
+    NERVE_HEADER(StageSceneStatePauseMenu, StartHelp)
+    NERVE_HEADER(StageSceneStatePauseMenu, WaitDraw)
+    NERVE_HEADER(StageSceneStatePauseMenu, End)
+    NERVE_HEADER(StageSceneStatePauseMenu, StartSeparatePlay)
+    NERVE_HEADER(StageSceneStatePauseMenu, EndSeparatePlay)
+    NERVE_HEADER(StageSceneStatePauseMenu, Option)
+    NERVE_HEADER(StageSceneStatePauseMenu, Save)
+    NERVE_HEADER(StageSceneStatePauseMenu, ConfirmNewGame)
+    NERVE_HEADER(StageSceneStatePauseMenu, NotExistEmptyFile)
+    // custom nerves
+    NERVE_HEADER(StageSceneStatePauseMenu, ServerConfig)
 }
 
 namespace {
+    NERVE_IMPL(StageSceneStatePauseMenu, Appear)
+    NERVE_IMPL(StageSceneStatePauseMenu, Wait)
+    NERVE_IMPL(StageSceneStatePauseMenu, FadeBeforeHelp)
+    NERVE_IMPL(StageSceneStatePauseMenu, StartHelp)
+    NERVE_IMPL(StageSceneStatePauseMenu, WaitDraw)
+    NERVE_IMPL(StageSceneStatePauseMenu, End)
+    NERVE_IMPL(StageSceneStatePauseMenu, StartSeparatePlay)
+    NERVE_IMPL(StageSceneStatePauseMenu, EndSeparatePlay)
+    NERVE_IMPL(StageSceneStatePauseMenu, Option)
+    NERVE_IMPL(StageSceneStatePauseMenu, Save)
+    NERVE_IMPL(StageSceneStatePauseMenu, ConfirmNewGame)
+    NERVE_IMPL(StageSceneStatePauseMenu, NotExistEmptyFile)
+    // custom nerves
+    NERVE_IMPL(StageSceneStatePauseMenu, ServerConfig)
 }
 

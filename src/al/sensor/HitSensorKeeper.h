@@ -1,7 +1,6 @@
 #pragma once
 
 #include "types.h"
-#include "al/LiveActor/LiveActor.h"
 #include "al/sensor/SensorHitGroup.h"
 #include "sead/math/seadVector.h"
 #include "sead/math/seadMatrix.h"
@@ -9,6 +8,9 @@
 
 namespace al
 {
+
+    class LiveActor;
+
     class HitSensorKeeper
     {
     public:
@@ -23,9 +25,5 @@ namespace al
         void validateBySystem(void);
         void invalidateBySystem(void);
         al::HitSensor *getSensor(char const *sensorName) const;
-
-        int mSensorKeeperNum;
-        int mSensorNum;
-        al::HitSensor** mSensors; // 0x8
     };
 };
