@@ -1,6 +1,7 @@
 # Build directory
 build/
 .cache/
+.vs
 
 # Prerequisites
 *.d
