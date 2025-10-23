@@ -9,7 +9,7 @@ A base repository using exlaunch-cmake that contains code for modifying Super Ma
 
 # Notes
 
-Currently untested
+Currently untested e
 
 # Credits
 
