@@ -19,7 +19,7 @@ sock.bind(server_address)
 sock.listen(1)
 
 while True:
-# Wait for a connection
+    # Wait for a connection
     print('Waiting for Switch to Connect...')
     connection, client_address = sock.accept()
     try:
@@ -39,3 +39,4 @@ while True:
     finally:
         # Clean up the connection
         connection.close()
+
